@@ -1,0 +1,35 @@
+-- Task1
+-- USE little_lemon_db;
+-- DELIMITER //
+-- CREATE PROCEDURE IF NOT EXISTS GetMaxQuantity() 
+-- BEGIN
+-- 	SELECT MAX(Quantity) FROM Orders;
+-- END //
+-- DELIMITER ;
+-- CALL GetMaxQuantity();
+
+-- Task2
+-- USE little_lemon_db;
+-- PREPARE GetOrderDetail FROM 'SELECT OrderID, Quantity, TotalCost FROM Orders WHERE OrderID = ?';
+-- SET @id = 1;
+-- EXECUTE GetOrderDetail USING @id;
+
+-- Task3
+-- USE little_lemon_db;
+-- DELIMITER //
+-- CREATE PROCEDURE CancelOrder(IN orderID INT)
+-- BEGIN
+-- 	DECLARE row_count INT;
+-- 	SET SQL_SAFE_UPDATES = 0;
+-- 	DELETE FROM Orders WHERE OrderID = orderID;
+--     SELECT COUNT(*) INTO @row_count FROM Orders WHERE OrderID = orderID;
+--     IF row_count > 0 THEN
+-- 		SELECT CONCAT('Order ', orderID, ' is cancelled') AS Confirmation;
+-- 	ELSE
+-- 		SELECT CONCAT(row_count, 'rows of Order ', orderID, ' still exists in table.') AS Confirmation;
+-- 	END IF;
+--     SET SQL_SAFE_UPDATES = 1;
+-- END //
+-- DELIMITER ;
+-- CALL CancelOrder(5);
+
