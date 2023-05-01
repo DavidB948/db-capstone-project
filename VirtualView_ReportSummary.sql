@@ -1,0 +1,22 @@
+-- Task1
+-- USE little_lemon_db;
+-- CREATE VIEW OrdersView AS SELECT OrderID, Quantity, TotalCost FROM little_lemon_db.Orders WHERE Quantity > 2;
+-- Select * from OrdersView;
+
+-- Task2
+-- USE little_lemon_db;
+-- Select CustomerID, CustomerName, OrderID, TotalCost, MenuName, Course, Starter
+-- From Customers 
+-- INNER JOIN Bookings on Customers.CustomerID = Bookings.Customers_CustomerID
+-- INNER JOIN Orders on Bookings.Orders_OrderID = Orders.OrderID
+-- INNER JOIN Menus on Menus.Orders_OrderID = Orders.OrderID 
+-- INNER JOIN Menus_has_MenuItems on Menus_has_MenuItems.Menus_MenuID = Menus.MenuID 
+-- INNER JOIN MenuItems on MenuItems.MenuItemID = Menus_has_MenuItems.MenuItems_MenuItemID
+-- WHERE TotalCost > 150;
+
+-- Task3
+-- SELECT MenuName FROM Menus
+-- WHERE Orders_OrderID = ANY(
+-- SELECT OrderID
+-- FROM Orders
+-- WHERE Quantity > 2)
