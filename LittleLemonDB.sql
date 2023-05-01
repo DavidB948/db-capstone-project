@@ -76,19 +76,41 @@ LOCK TABLES `Customers` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Menu`
+-- Table structure for table `MenuItems`
 --
 
-DROP TABLE IF EXISTS `Menu`;
+DROP TABLE IF EXISTS `MenuItems`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Menu` (
-  `MenuID` int NOT NULL,
-  `Cuisines` varchar(45) NOT NULL,
-  `Starters` varchar(45) NOT NULL,
-  `Courses` varchar(45) NOT NULL,
+CREATE TABLE `MenuItems` (
+  `MenuItemID` int NOT NULL,
+  `Starter` varchar(45) NOT NULL,
+  `Dessert` varchar(45) NOT NULL,
+  `Course` varchar(45) NOT NULL,
   `Drinks` varchar(45) NOT NULL,
-  `Desserts` varchar(45) NOT NULL,
+  PRIMARY KEY (`MenuItemID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `MenuItems`
+--
+
+LOCK TABLES `MenuItems` WRITE;
+/*!40000 ALTER TABLE `MenuItems` DISABLE KEYS */;
+/*!40000 ALTER TABLE `MenuItems` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Menus`
+--
+
+DROP TABLE IF EXISTS `Menus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Menus` (
+  `MenuID` int NOT NULL,
+  `MenuName` varchar(100) NOT NULL,
   `Orders_OrderID` int NOT NULL,
   PRIMARY KEY (`MenuID`),
   KEY `fk_Menu_Orders1_idx` (`Orders_OrderID`),
@@ -97,12 +119,39 @@ CREATE TABLE `Menu` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Menu`
+-- Dumping data for table `Menus`
 --
 
-LOCK TABLES `Menu` WRITE;
-/*!40000 ALTER TABLE `Menu` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Menu` ENABLE KEYS */;
+LOCK TABLES `Menus` WRITE;
+/*!40000 ALTER TABLE `Menus` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Menus` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Menus_has_MenuItems`
+--
+
+DROP TABLE IF EXISTS `Menus_has_MenuItems`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Menus_has_MenuItems` (
+  `Menus_MenuID` int NOT NULL,
+  `MenuItems_MenuItemID` int NOT NULL,
+  PRIMARY KEY (`Menus_MenuID`,`MenuItems_MenuItemID`),
+  KEY `fk_Menus_has_MenuItems_MenuItems1_idx` (`MenuItems_MenuItemID`),
+  KEY `fk_Menus_has_MenuItems_Menus1_idx` (`Menus_MenuID`),
+  CONSTRAINT `fk_Menus_has_MenuItems_MenuItems1` FOREIGN KEY (`MenuItems_MenuItemID`) REFERENCES `MenuItems` (`MenuItemID`),
+  CONSTRAINT `fk_Menus_has_MenuItems_Menus1` FOREIGN KEY (`Menus_MenuID`) REFERENCES `Menus` (`MenuID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Menus_has_MenuItems`
+--
+
+LOCK TABLES `Menus_has_MenuItems` WRITE;
+/*!40000 ALTER TABLE `Menus_has_MenuItems` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Menus_has_MenuItems` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -190,4 +239,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-01  0:17:10
+-- Dump completed on 2023-05-01 14:44:34
