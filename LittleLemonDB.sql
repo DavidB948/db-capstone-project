@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `Bookings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Bookings` (
-  `BookingID` int NOT NULL,
+  `BookingID` int NOT NULL AUTO_INCREMENT,
   `Date` date NOT NULL,
   `TableNo` int NOT NULL,
   `Staff_StaffID` int NOT NULL,
@@ -35,10 +35,10 @@ CREATE TABLE `Bookings` (
   KEY `fk_Bookings_Staff_idx` (`Staff_StaffID`),
   KEY `fk_Bookings_Customers1_idx` (`Customers_CustomerID`),
   KEY `fk_Bookings_Orders1_idx` (`Orders_OrderID`),
-  CONSTRAINT `fk_Bookings_Customers1` FOREIGN KEY (`Customers_CustomerID`) REFERENCES `Customers` (`CustomerID`),
-  CONSTRAINT `fk_Bookings_Orders1` FOREIGN KEY (`Orders_OrderID`) REFERENCES `Orders` (`OrderID`),
-  CONSTRAINT `fk_Bookings_Staff` FOREIGN KEY (`Staff_StaffID`) REFERENCES `Staff` (`StaffID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  CONSTRAINT `Customers_CustomerID` FOREIGN KEY (`Customers_CustomerID`) REFERENCES `Customers` (`CustomerID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Orders_OrderID` FOREIGN KEY (`Orders_OrderID`) REFERENCES `Orders` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Staff_StaffID` FOREIGN KEY (`Staff_StaffID`) REFERENCES `Staff` (`StaffID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,6 +47,7 @@ CREATE TABLE `Bookings` (
 
 LOCK TABLES `Bookings` WRITE;
 /*!40000 ALTER TABLE `Bookings` DISABLE KEYS */;
+INSERT INTO `Bookings` VALUES (1,'2022-10-10',12,1,1,1),(2,'2022-11-12',12,3,3,3),(3,'2022-10-11',12,2,2,2),(4,'2022-10-13',12,1,1,1),(5,'2022-12-17',7,1,1,1),(6,'2022-12-17',7,1,1,1);
 /*!40000 ALTER TABLE `Bookings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -72,6 +73,7 @@ CREATE TABLE `Customers` (
 
 LOCK TABLES `Customers` WRITE;
 /*!40000 ALTER TABLE `Customers` DISABLE KEYS */;
+INSERT INTO `Customers` VALUES (1,'A','11','aa'),(2,'B','22','bb'),(3,'C','33','cc'),(4,'E','44','ee');
 /*!40000 ALTER TABLE `Customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,6 +177,7 @@ CREATE TABLE `OrderDeliveryStatus` (
 
 LOCK TABLES `OrderDeliveryStatus` WRITE;
 /*!40000 ALTER TABLE `OrderDeliveryStatus` DISABLE KEYS */;
+INSERT INTO `OrderDeliveryStatus` VALUES (1,'2022-12-12','Pending');
 /*!40000 ALTER TABLE `OrderDeliveryStatus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,6 +206,7 @@ CREATE TABLE `Orders` (
 
 LOCK TABLES `Orders` WRITE;
 /*!40000 ALTER TABLE `Orders` DISABLE KEYS */;
+INSERT INTO `Orders` VALUES (1,'2022-10-10',1,1,1),(2,'2022-10-11',2,2,1),(3,'2022-11-12',3,3,1);
 /*!40000 ALTER TABLE `Orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,6 +231,7 @@ CREATE TABLE `Staff` (
 
 LOCK TABLES `Staff` WRITE;
 /*!40000 ALTER TABLE `Staff` DISABLE KEYS */;
+INSERT INTO `Staff` VALUES (1,'Waiter','1000'),(2,'Waitress','1500'),(3,'Waitress','1000');
 /*!40000 ALTER TABLE `Staff` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -239,4 +244,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-01 14:44:34
+-- Dump completed on 2023-05-07 19:06:43

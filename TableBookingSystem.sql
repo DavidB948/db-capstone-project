@@ -1,0 +1,49 @@
+-- Task1
+-- USE little_lemon_db;
+-- INSERT INTO Bookings (BookingID, Date, TableNo, Staff_StaffID, Customers_CustomerID, Orders_OrderID)
+-- VALUES 
+-- (1, '2022-10-10', 5, 1, 1, 1),
+-- (2, '2022-11-12', 3, 3, 3, 3),
+-- (3, '2022-10-11', 2, 2, 2, 2),
+-- (4, '2022-10-13', 2, 1, 1, 1);
+
+-- Task2
+-- USE little_lemon_db;
+-- DELIMITER //
+-- CREATE PROCEDURE CheckBooking(IN bookingDate DATE, IN tableNumber INT)
+-- BEGIN
+-- 	DECLARE row_count INT;
+--     SELECT COUNT(*) INTO row_count FROM Bookings WHERE Date = bookingDate and TableNo = tableNumber;
+--     IF row_count > 0 THEN
+-- 		SELECT CONCAT('Table ', tableNumber, ' is already booked.') AS 'Booking status';
+-- 	ELSE
+-- 		SELECT CONCAT('Table ', tableNumber, ' is not booked yet.') AS 'Booking status';
+--     END IF;
+-- END//
+-- DELIMITER ;
+-- CALL CheckBooking('2022-11-12', 3);
+
+-- Task3
+-- USE little_lemon_db;
+
+-- DELIMITER \\
+
+-- CREATE PROCEDURE AddValidBooking(IN bookingDate DATE, IN tableNumber INT, IN staffID INT, IN customerID INT, IN orderID INT) 
+-- BEGIN
+-- 	DECLARE availableBooking INT;
+-- 	START TRANSACTION;
+--     SELECT COUNT(*) INTO availableBooking FROM Bookings WHERE Date = bookingDate AND TableNo = tableNumber;
+--     INSERT INTO Bookings 
+--     (Date, TableNo, Staff_StaffID, Customers_CustomerID, Orders_OrderID) 
+--     VALUES (bookingDate, tableNumber, staffID, customerID, orderID);
+--     
+--     IF availableBooking > 1 THEN
+-- 		SELECT CONCAT('Table ', tableNumber, ' is already booked - booking cancelled') AS BookingStatus;
+-- 		ROLLBACK;
+-- 	ELSE
+-- 		SELECT CONCAT('Table ', tableNumber, ' is booked successfully') AS BookingStatus;
+-- 		COMMIT;
+-- 	END IF;
+-- END \\
+-- DELIMITER ;
+-- CALL AddValidBooking("2022-12-17", 6, 1, 1, 1);
