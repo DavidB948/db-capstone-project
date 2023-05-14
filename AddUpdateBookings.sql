@@ -14,7 +14,7 @@
 -- Task2
 USE little_lemon_db;
 -- DELIMITER //
--- CREATE PROCEDURE UpdateBooking(IN bookingID INT, IN bookingDate DATE, IN tableNumber INT)
+-- CREATE DEFINER='capstone_meta'@'localhost' PROCEDURE UpdateBooking(IN bookingID INT, IN bookingDate DATE, IN tableNumber INT)
 -- BEGIN
 -- 	SET SQL_SAFE_UPDATES = 0;
 -- 	UPDATE little_lemon_db.Bookings SET TableNo = tableNumber WHERE Bookings.BookingID=9 AND Bookings.Date=bookingDate;
