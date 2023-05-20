@@ -1,5 +1,5 @@
 # Meta db-capstone-project
-This is a capstone project for the Meta Database Engineering course which a database and client for Little Lemon restaurant will be created.
+This is a capstone project for the Meta Database Engineering course to help create a database and client system for a restaurant, Little Lemon.
 
 
 **Below are the brief description of the project:**
